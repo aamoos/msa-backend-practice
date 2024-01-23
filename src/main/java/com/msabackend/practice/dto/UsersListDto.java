@@ -2,16 +2,14 @@ package com.msabackend.practice.dto;
 
 import com.msabackend.practice.entity.Users;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
-public class UsersDto {
+public class UsersListDto {
 
     @Data
     public static class Request {
         private Long id;
         private String username;
-
         private int age;
 
         /* Dto -> Entity */
@@ -24,13 +22,11 @@ public class UsersDto {
         }
     }
 
-    @Getter
+    //노출할 것만
+    @Data
     public static class Response {
         private Long id;
-
-        public Response(Users users){
-            this.id = users.getId();
-        }
+        private String username;
+        private int age;
     }
-
 }

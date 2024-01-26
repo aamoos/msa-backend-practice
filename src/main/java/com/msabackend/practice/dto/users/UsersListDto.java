@@ -1,4 +1,4 @@
-package com.msabackend.practice.dto;
+package com.msabackend.practice.dto.users;
 
 import com.msabackend.practice.entity.Users;
 import lombok.Data;
@@ -11,15 +11,6 @@ public class UsersListDto {
         private Long id;
         private String username;
         private int age;
-
-        /* Dto -> Entity */
-        public Users toEntity(){
-            return Users.builder()
-                    .id(id)
-                    .username(username)
-                    .age(age)
-                    .build();
-        }
     }
 
     //노출할 것만
@@ -28,5 +19,11 @@ public class UsersListDto {
         private Long id;
         private String username;
         private int age;
+
+        public Response(Users users) {
+            this.id = users.getId();
+            this.username = users.getUsername();
+            this.age = users.getAge();
+        }
     }
 }

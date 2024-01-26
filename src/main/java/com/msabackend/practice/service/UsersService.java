@@ -1,11 +1,10 @@
 package com.msabackend.practice.service;
 
 import com.msabackend.practice.dto.Result;
-import com.msabackend.practice.dto.UsersListDto;
+import com.msabackend.practice.dto.users.UsersListDto;
 import com.msabackend.practice.entity.Users;
 import com.msabackend.practice.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +17,13 @@ import java.util.stream.Collectors;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private final ModelMapper modelMapper;
 
+    //사용자 리스트 - 조회
     public Result list(){
         List<Users> users = usersRepository.findAll();
 
         List<UsersListDto.Response> resultDto = users.stream()
-                .map(data -> modelMapper.map(data, UsersListDto.Response.class))
+                .map(UsersListDto.Response::new)
                 .collect(Collectors.toList());
 
         return new Result(resultDto.size(), resultDto);

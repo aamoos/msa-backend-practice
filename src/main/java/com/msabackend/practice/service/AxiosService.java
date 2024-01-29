@@ -35,4 +35,9 @@ public class AxiosService {
     public AxiosSaveDto.Response save(AxiosSaveDto.Request request){
         return new AxiosSaveDto.Response(axiosRepository.save(request.toEntity()).getId());
     }
+
+    //axios - 삭제
+    public void delete(Integer id){
+        axiosRepository.deleteById(id);
+    }
 }

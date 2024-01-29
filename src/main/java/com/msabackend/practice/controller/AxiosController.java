@@ -4,6 +4,7 @@ import com.msabackend.practice.dto.Result;
 import com.msabackend.practice.dto.axios.AxiosSaveDto;
 import com.msabackend.practice.service.AxiosService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,13 +15,23 @@ public class AxiosController {
 
     // 리스트 조회
     @GetMapping(value = "/list")
-    public Result list(){
-        return axiosService.list();
+    public ResponseEntity<Result> list(){
+        return ResponseEntity.ok()
+                .body(axiosService.list());
     }
 
-    // 저장
-    @PostMapping(value = "/save")
-    public AxiosSaveDto.Response save(@RequestBody AxiosSaveDto.Request request){
-        return axiosService.save(request);
+    // 등록
+    @PostMapping(value = "/create")
+    public ResponseEntity<AxiosSaveDto.Response> save(@RequestBody AxiosSaveDto.Request request){
+        return ResponseEntity.ok()
+                .body(axiosService.save(request));
     }
+
+    //삭제
+    @DeleteMapping(value = "/delete/{id}")
+    public void delete(@PathVariable Long id){
+
+    }
+
+
 }

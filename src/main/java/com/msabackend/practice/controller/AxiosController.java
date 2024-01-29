@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/axios")
+@RequestMapping(value = "/api/v1/axios")
 @RequiredArgsConstructor
 public class AxiosController {
     private final AxiosService axiosService;

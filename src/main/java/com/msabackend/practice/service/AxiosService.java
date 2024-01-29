@@ -33,11 +33,11 @@ public class AxiosService {
 
     //axios - 저장
     public AxiosSaveDto.Response save(AxiosSaveDto.Request request){
-        return new AxiosSaveDto.Response(axiosRepository.save(request.toEntity()).getId());
+        return new AxiosSaveDto.Response( axiosRepository.save(request.toEntity()).getId() );
     }
 
     //axios - 삭제
-    public void delete(Integer id){
+    public void delete(int id){
         axiosRepository.deleteById(id);
     }
 }

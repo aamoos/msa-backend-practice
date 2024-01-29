@@ -22,15 +22,23 @@ public class AxiosController {
 
     // 등록
     @PostMapping(value = "/create")
-    public ResponseEntity<AxiosSaveDto.Response> save(@RequestBody AxiosSaveDto.Request request){
+    public ResponseEntity<AxiosSaveDto.Response> insert(@RequestBody AxiosSaveDto.Request request){
         return ResponseEntity.ok()
                 .body(axiosService.save(request));
     }
 
+    //수정
+    @PutMapping(value = "/update")
+    public ResponseEntity<AxiosSaveDto.Response> update(@RequestBody AxiosSaveDto.Request request){
+        return ResponseEntity.ok()
+                .body(axiosService.save(request));
+    }
+
+
     //삭제
     @DeleteMapping(value = "/delete/{id}")
-    public void delete(@PathVariable Long id){
-
+    public void delete(@PathVariable("id") int id){
+        axiosService.delete(id);
     }
 
 

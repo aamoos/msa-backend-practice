@@ -1,6 +1,7 @@
 package com.msabackend.practice.controller;
 
 import com.msabackend.practice.dto.Result;
+import com.msabackend.practice.dto.axios.AxiosListDto;
 import com.msabackend.practice.dto.axios.AxiosSaveDto;
 import com.msabackend.practice.service.AxiosService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,9 @@ public class AxiosController {
 
     // 리스트 조회
     @GetMapping(value = "/list")
-    public ResponseEntity<Result> list(){
+    public ResponseEntity<Result> list(@RequestBody AxiosListDto.Request request){
         return ResponseEntity.ok()
-                .body(axiosService.list());
+                .body(axiosService.list(request));
     }
 
     // 등록

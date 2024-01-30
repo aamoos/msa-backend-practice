@@ -21,7 +21,7 @@ public class AxiosService {
 
     // axios - 리스트 조회
     @Transactional(readOnly = true)
-    public Result list(){
+    public Result list(AxiosListDto.Request request){
         List<Axios> axios = axiosRepository.findAll();
 
         List<AxiosListDto.Response> resultDto = axios.stream()

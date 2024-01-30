@@ -16,9 +16,16 @@ public class AxiosController {
 
     // 리스트 조회
     @GetMapping(value = "/list")
-    public ResponseEntity<Result> list(@RequestBody AxiosListDto.Request request){
+    public ResponseEntity<Result> list(){
         return ResponseEntity.ok()
-                .body(axiosService.list(request));
+                .body(axiosService.list());
+    }
+
+    //리스트 검색 조회
+    @GetMapping(value = "/search")
+    public ResponseEntity<Result> search(@RequestParam(value = "title") String title){
+        return ResponseEntity.ok()
+                .body(axiosService.search(title));
     }
 
     // 등록

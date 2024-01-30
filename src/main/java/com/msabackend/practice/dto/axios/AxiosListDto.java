@@ -1,6 +1,7 @@
 package com.msabackend.practice.dto.axios;
 
 import com.msabackend.practice.entity.Axios;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 public class AxiosListDto {
@@ -21,5 +22,13 @@ public class AxiosListDto {
             this.title = axios.getTitle();
             this.body = axios.getBody();
         }
+
+        @QueryProjection
+        public Response(Long id, String title, String body) {
+           this.id = id;
+           this.title = title;
+           this.body = body;
+        }
+
     }
 }

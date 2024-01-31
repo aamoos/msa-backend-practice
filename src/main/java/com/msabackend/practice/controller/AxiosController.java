@@ -1,12 +1,14 @@
 package com.msabackend.practice.controller;
 
 import com.msabackend.practice.dto.Result;
-import com.msabackend.practice.dto.axios.AxiosListDto;
 import com.msabackend.practice.dto.axios.AxiosSaveDto;
 import com.msabackend.practice.service.AxiosService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/axios")
@@ -19,6 +21,13 @@ public class AxiosController {
     public ResponseEntity<Result> list(){
         return ResponseEntity.ok()
                 .body(axiosService.list());
+    }
+
+    //페이징 리스트 조회
+    @GetMapping(value = "/paging")
+    public ResponseEntity<Result> paging(@RequestParam(value = "title") String title, Pageable pageable){
+        return ResponseEntity.ok()
+                .body(axiosService.paging(title, pageable));
     }
 
     //리스트 검색 조회

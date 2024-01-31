@@ -9,6 +9,9 @@ import com.msabackend.practice.repository.AxiosRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -38,6 +41,13 @@ public class AxiosService {
         return new Result(resultDto.size(), resultDto);
     }
 
+    //axios - 페이징 조회
+    @Transactional(readOnly = true)
+    public Result paging(String title, Pageable pageable){
+        Page<AxiosListDto.Response> resultDto = searchByTitlePageList(title, pageable);
+        return new Result(resultDto.getSize(), resultDto);
+    }
+
     //axios - 검색어 조회
     @Transactional(readOnly = true)
     public Result search(String title){
@@ -59,6 +69,35 @@ public class AxiosService {
                     titleLike(title)
                 )
                 .fetch();
+    }
+
+    //axios - paging
+    public Page<AxiosListDto.Response> searchByTitlePageList(String title, Pageable pageable){
+
+        //list
+        List<AxiosListDto.Response> content = jpaQueryFactory
+                .select(new QAxiosListDto_Response(
+                    axios.id,
+                    axios.title,
+                    axios.body
+                ))
+                .from(axios)
+                .where(
+                    titleLike(title)
+                )
+                .offset(pageable.getOffset())   //페이지 번호
+                .limit(pageable.getPageSize())  //페이지 사이즈
+                .fetch();
+
+        //total
+        Long count = jpaQueryFactory
+                .select(axios.count())
+                .from(axios)
+                .where(
+                    titleLike(title)
+                )
+                .fetchOne();
+        return new PageImpl<>(content, pageable, count);
     }
 
     //axios - 저장
